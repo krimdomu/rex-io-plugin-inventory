@@ -1,6 +1,6 @@
 # Inventory module for Rex.IO
 
-This module stores the inventory of your hardware.
+This module stores the inventory of your hardware. This module is required by Rex.IO.
 
 ## API
 
