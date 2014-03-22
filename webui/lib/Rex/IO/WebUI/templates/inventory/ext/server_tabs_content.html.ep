@@ -1,0 +1,149 @@
+<div id="tab-network" class="tab-pane" tab_id="network">
+
+  <div class="framebody">
+    <div class="left_frame">
+
+      <div class="portlet box grey">
+        <div class="portlet-title">
+          <h4>Network Devices</h4>
+        </div>
+        <div class="portlet-body table_no_bottom">
+
+          <table border="0" id="table_server_network_devices" style="width: 100%;">
+            <thead>
+              <tr>
+                <td>Name</td>
+                <td>Mac</td>
+                <td>IP</td>
+                <td>Netmask</td>
+              </tr>
+            </thead>
+            <tbody>
+            % my $nwas = rexio->call(GET => "1.0", "inventory", host => $server->{id}, network_adapter => undef);
+            % for my $nwa (@{ $nwas->{data} }) {
+              <tr dev="<%= $nwa->{dev} %>" dev_id="<%= $nwa->{id} %>">
+                <td><%= $nwa->{dev} %></td>
+                <td><%= $nwa->{mac} %></td>
+                <td><%= $nwa->{ip} %></td>
+                <td><%= $nwa->{netmask} %></td>
+              </tr>
+            % }
+            </tbody>
+          </table>
+
+        </div>
+
+      </div>
+
+    </div> <!-- left frame -->
+
+    <div class="right_frame">
+
+      <div class="portlet box grey">
+        <div class="portlet-title">
+          <h4>Bridges</h4>
+        </div>
+        <div class="portlet-body table_no_bottom">
+
+          <table border="0" id="table_server_network_bridges" style="width: 100%;">
+            <thead>
+              <tr>
+                <td>Name</td>
+                <td>IP</td>
+                <td>Netmask</td>
+                <td>Bridged Devices</td>
+              </tr>
+            </thead>
+            <tbody>
+            % my $bridges = rexio->call(GET => "1.0", "inventory", host => $server->{id}, bridge => undef);
+            % for my $br (@{ $bridges->{data} }) {
+              <tr dev="<%= $br->{name} %>" dev_id="<%= $br->{id} %>">
+                <td><%= $br->{name} %></td>
+                <td><%= $br->{ip} %></td>
+                <td><%= $br->{netmask} %></td>
+                <td><%= join(", ", @{ $br->{devices} }) %></td>
+              </tr>
+            % }
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+
+    </div>  <!-- right frame -->
+
+  </div> <!-- framebody -->
+
+</div>  <!-- network tab -->
+
+
+
+<div id="configure_network_device" class="dialog-window" title="Configure Network Device">
+  <form>
+
+      <table border="0">
+        <tr>
+          <td>Bootdevice</td>
+          <td><input type="checkbox" name="nwa_boot" value="1" id="nwa_boot" /></td>
+        </tr>
+        % if (has_plugin('Dns')) {
+        <tr>
+          <td>Register DNS</td>
+          <td><input type="checkbox" name="nwa_dns" value="1" id="nwa_dns" /></td>
+        </tr>
+        % }
+        <tr>
+          <td>Name</td>
+          <td><input type="text" name="nwa_name" value="" id="nwa_name" /></td>
+        </tr>
+        <tr id="tr_mac">
+          <td>MAC</td>
+          <td><input type="text" name="nwa_mac" value="" id="nwa_mac" /></td>
+        </tr>
+
+        <tr>
+          <td>Protocol</td>
+          <td>
+            <select name="nwa_proto" id="nwa_proto">
+              <option value="static">Static IP</option>
+              <option value="dhcp">Dynamic IP (DHCP)</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>IP</td>
+          <td><input type="text" name="nwa_ip" value="" id="nwa_ip" /></td>
+        </tr>
+        <tr>
+          <td>Netmask</td>
+          <td><input type="text" name="nwa_netmask" value="" id="nwa_netmask" /></td>
+        </tr>
+        <tr>
+          <td>Broadcast</td>
+          <td><input type="text" name="nwa_broadcast" value="" id="nwa_broadcast" /></td>
+        </tr>
+        <tr>
+          <td>Network</td>
+          <td><input type="text" name="nwa_network" value="" id="nwa_network" /></td>
+        </tr>
+        <tr>
+          <td>Gateway</td>
+          <td><input type="text" name="nwa_gateway" value="" id="nwa_gateway" /></td>
+        </tr>
+        <tr id="tr_bridge">
+          <td>Bridge</td>
+          <td>
+            <select name="nwa_bridge" id="nwa_bridge">
+              <option value="">No bridging</option>
+              % for my $br (@{ $bridges->{data} }) {
+              <option value="<%= $br->{id} %>"><%= $br->{name} %></option>
+              % }
+            </select>
+          </td>
+        </tr>
+
+
+      </table>
+
+  </form>
+</div>

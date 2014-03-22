@@ -1,0 +1,50 @@
+<div class="portlet box grey">
+  <div class="portlet-title">
+    <h4>Hardware</h4>
+  </div>
+  <div class="portlet-body">
+
+    <table border="0" class="hardware_table" width="100%">
+      <tr>
+        <th width="20">&nbsp;</th>
+        <th width="100" align="left">Class</th>
+        <th align="left">Info</th>
+      </tr>
+
+      <% for my $cpu (@{ $server->{processors} }) { %>
+      <tr>
+        <td class="col-img icon-cpu td-icon">&nbsp;</td>
+        <td class="col-class">CPU</td>
+        <td class="col-info"><%= $cpu->{modelname} %> (<%= $cpu->{mhz} %> MHz)</td>
+      </tr>
+      <% } %>
+
+      <% for my $mem (@{ $server->{memories} }) { %>
+      <tr>
+        <td class="col-img icon-memory td-icon">&nbsp;</td>
+        <td class="col-class">Memory</td>
+        <td class="col-info"><%= $mem->{size} %> MB, <%= $mem->{type} %> <%= $mem->{speed} %></td>
+      </tr>
+      <% } %>
+
+      <% for my $hdd (@{ $server->{harddrives} }) { %>
+      <tr>
+        <td class="col-img icon-hdd td-icon">&nbsp;</td>
+        <td class="col-class">Harddrive</td>
+        <td class="col-info"><%= int($hdd->{size} / 1024) %> GB, <%= $hdd->{vendor} %>, Device: <%= $hdd->{devname} %></td>
+      </tr>
+      <% } %>
+
+      % for my $eth (@{ $server->{network_adapters} }) {
+      % next if ($eth->{virtual});
+      <tr>
+        <td class="col-img icon-eth td-icon">&nbsp;</td>
+        <td class="col-class">Network</td>
+        <td class="col-info"><%= $eth->{dev} %></td>
+      </tr>
+      % }
+
+    </table>
+
+  </div>
+</div>
