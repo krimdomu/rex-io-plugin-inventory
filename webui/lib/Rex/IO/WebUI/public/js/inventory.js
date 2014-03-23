@@ -1,71 +1,33 @@
-(function() {
+var inventory = new Class({
+  Extends: ui_plugin,
 
-  $(document).ready(function() {
+  initialize: function(ui) {
+    this.parent(ui);
+  },
 
-    server_init_hook(function(server_id) {
+  load: function(obj) {
 
-      prepare_server_bridge_list();
-      prepare_server_nwa_list();
+  },
 
-      prepare_network_dialogs(server_id);
+  onload_server: function() {
+    this.prepare_server_bridge_list();
+    this.prepare_server_nwa_list();
+    this.prepare_network_dialogs(server_id);
+  },
 
-    });
+  prepare_server_bridge_list: function() {
 
-  })
+  },
 
-})();
+  prepare_server_nwa_list: function() {
 
+  },
 
-var tbl_nwa_list;
-function prepare_server_nwa_list() {
+  prepare_network_dialogs: function(server_id) {
 
-  tbl_nwa_list = $("#table_server_network_devices").dataTable({
-    //"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
-    "bJQueryUI": true,
-    "bPaginate": false,
-    "sPaginationType": "full_numbers",
-    "bFilter": false,
-    "bInfo": false
-  });
+  }
+});
 
-  $("#table_server_network_devices tbody tr").click( function( e ) {
-    if ( $(this).hasClass('row_selected') ) {
-      $(this).removeClass('row_selected');
-    }
-    else {
-      tbl_nwa_list.$('tr.row_selected').removeClass('row_selected');
-      $(this).addClass('row_selected');
-    }
-  });
-
-  prepare_data_tables();
-}
-
-var tbl_bridge_list;
-function prepare_server_bridge_list() {
-
-  tbl_bridge_list = $("#table_server_network_bridges").dataTable({
-    //"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
-    "bJQueryUI": true,
-    "bPaginate": false,
-    "sPaginationType": "full_numbers",
-    "bFilter": false,
-    "bInfo": false
-  });
-
-  $("#table_server_network_bridges tbody tr").click( function( e ) {
-    if ( $(this).hasClass('row_selected') ) {
-      $(this).removeClass('row_selected');
-    }
-    else {
-      tbl_bridge_list.$('tr.row_selected').removeClass('row_selected');
-      $(this).addClass('row_selected');
-    }
-  });
-
-  prepare_data_tables();
-
-}
 
 function server_delete_bridge(srv_id, br_id) {
 

@@ -9,7 +9,7 @@
         </div>
         <div class="portlet-body table_no_bottom">
 
-          <table border="0" id="table_server_network_devices" style="width: 100%;">
+          <table border="0" id="table_server_network_devices" class="rexio-ui-data-table" rexio-ui-selectable="true" style="width: 100%;">
             <thead>
               <tr>
                 <td>Name</td>
@@ -45,7 +45,7 @@
         </div>
         <div class="portlet-body table_no_bottom">
 
-          <table border="0" id="table_server_network_bridges" style="width: 100%;">
+          <table border="0" id="table_server_network_bridges" class="rexio-ui-data-table" rexio-ui-selectable="true" style="width: 100%;">
             <thead>
               <tr>
                 <td>Name</td>
@@ -74,11 +74,25 @@
 
   </div> <!-- framebody -->
 
+  <div style="clear: both;"></div>
+
 </div>  <!-- network tab -->
 
 
 
-<div id="configure_network_device" class="dialog-window" title="Configure Network Device">
+<div id="configure_network_device"
+  class="dialog-window rexio-ui-dialog"
+  title="Configure Network Device"
+  rexio-dialog-auto-open="false"
+  rexio-dialog-height="500"
+  rexio-dialog-width="350"
+  rexio-dialog-modal="true"
+  rexio-dialog-button-ok-value="Save"
+  rexio-dialog-button-cancel-value="Cancel"
+  rexio-dialog-button-ok-click="inventory.click_configure_network_device_save"
+  rexio-dialog-button-cancel-click="inventory.click_configure_network_device_cancel"
+  rexio-dialog-close="inventory.close_configure_network_device_dialog"
+  >
   <form>
 
       <table border="0">
