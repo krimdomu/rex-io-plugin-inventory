@@ -1,0 +1,19 @@
+<li>
+  <a href="#">Network</a>
+  <ul>
+    <li><a href="#">Adapter</a>
+      <ul>
+        <li><a href="#" class="mnu_item rexio-ui-link" rexio-ui-click="inventory.add_adapter_dialog">Add Adapter</a></li>
+        <li><a href="#" class="mnu_item rexio-ui-link" rexio-ui-click="inventory.del_adapter_dialog">Delete Adapter</a></li>
+        <li><a href="#" class="mnu_item rexio-ui-link" rexio-ui-click="inventory.configure_adapter_dialog">Configure Adapter</a></li>
+      </ul>
+    </li>
+    <li><a href="#">Bridge</a>
+      <ul>
+        <li><a href="#" class="mnu_item rexio-ui-link" rexio-ui-click="inventory.add_bridge_dialog">Add Bridge</a></li>
+        <li><a href="#" class="mnu_item rexio-ui-link" rexio-ui-click="inventory.del_bridge_dialog">Delete Bridge</a></li>
+        <li><a href="#" class="mnu_item rexio-ui-link" rexio-ui-click="inventory.configure_bridge_dialog">Configure Bridge</a></li>
+      </ul>
+    </li>
+  </ul>
+</li>

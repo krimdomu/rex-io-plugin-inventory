@@ -161,3 +161,70 @@
 
   </form>
 </div>
+
+
+<div id="configure_bridge_device"
+  class="dialog-window rexio-ui-dialog"
+  title="Configure Bridge Device"
+  rexio-dialog-auto-open="false"
+  rexio-dialog-height="500"
+  rexio-dialog-width="350"
+  rexio-dialog-modal="true"
+  rexio-dialog-button-ok-value="Save"
+  rexio-dialog-button-cancel-value="Cancel"
+  rexio-dialog-button-ok-click="inventory.click_configure_bridge_device_save"
+  rexio-dialog-button-cancel-click="inventory.click_configure_bridge_device_cancel"
+  rexio-dialog-close="inventory.close_configure_bridge_device_dialog"
+  >
+  <form>
+
+      <table border="0">
+        <tr>
+          <td>Bootdevice</td>
+          <td><input type="checkbox" name="br_boot" value="1" id="br_boot" /></td>
+        </tr>
+        % if (has_plugin('Dns')) {
+        <tr>
+          <td>Register DNS</td>
+          <td><input type="checkbox" name="br_dns" value="1" id="br_dns" /></td>
+        </tr>
+        % }
+        <tr>
+          <td>Name</td>
+          <td><input type="text" name="br_name" value="" id="br_name" /></td>
+        </tr>
+
+        <tr>
+          <td>Protocol</td>
+          <td>
+            <select name="br_proto" id="br_proto">
+              <option value="static">Static IP</option>
+              <option value="dhcp">Dynamic IP (DHCP)</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>IP</td>
+          <td><input type="text" name="br_ip" value="" id="br_ip" /></td>
+        </tr>
+        <tr>
+          <td>Netmask</td>
+          <td><input type="text" name="br_netmask" value="" id="br_netmask" /></td>
+        </tr>
+        <tr>
+          <td>Broadcast</td>
+          <td><input type="text" name="br_broadcast" value="" id="br_broadcast" /></td>
+        </tr>
+        <tr>
+          <td>Network</td>
+          <td><input type="text" name="br_network" value="" id="br_network" /></td>
+        </tr>
+        <tr>
+          <td>Gateway</td>
+          <td><input type="text" name="br_gateway" value="" id="br_gateway" /></td>
+        </tr>
+
+      </table>
+
+  </form>
+</div>
