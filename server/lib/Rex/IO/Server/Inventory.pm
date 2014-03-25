@@ -11,6 +11,7 @@ use Data::Dumper;
 use Carp;
 use Try::Tiny;
 use Rex::IO::Server::Helper::IP;
+use Rex::IO::Server::Helper::Inventory;
 
 sub update_inventory_for_server {
   my ($self) = @_;
@@ -151,6 +152,7 @@ sub _get_mac_addresses {
 
   my @mac_addresses = ();
   for my $eth ( @{ $json->{info}->{CONTENT}->{NETWORKS} } ) {
+    next if ( ! exists $eth->{MACADDR} );
     next if ( $eth->{MACADDR} =~ m/^00:00:00/ );
     next
       if ( $eth->{MACADDR} eq "fe:ff:ff:ff:ff:ff" );    # skip xen things...
