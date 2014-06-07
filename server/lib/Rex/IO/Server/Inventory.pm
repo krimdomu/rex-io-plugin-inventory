@@ -152,7 +152,7 @@ sub _get_mac_addresses {
 
   my @mac_addresses = ();
   for my $eth ( @{ $json->{info}->{CONTENT}->{NETWORKS} } ) {
-    next if ( ! exists $eth->{MACADDR} );
+    next if ( !exists $eth->{MACADDR} );
     next if ( $eth->{MACADDR} =~ m/^00:00:00/ );
     next
       if ( $eth->{MACADDR} eq "fe:ff:ff:ff:ff:ff" );    # skip xen things...
@@ -195,6 +195,16 @@ sub list_network_adapter {
     );
   }
 
+  if ( !$hw->has_perm( 'READ', $self->current_user ) ) {
+    return $self->render(
+      json => {
+        ok    => Mojo::JSON->false,
+        error => 'No permission to read hardware.'
+      },
+      status => 403
+    );
+  }
+
   my $ret = $hw->to_hashRef()->{network_adapters};
 
   $self->render( json => { ok => Mojo::JSON->true, data => $ret } );
@@ -216,6 +226,16 @@ sub add_network_adapter {
     return $self->render(
       json   => { ok => Mojo::JSON->false, error => "Hardware not found." },
       status => 404
+    );
+  }
+
+  if ( !$hw->has_perm( 'MODIFY', $self->current_user ) ) {
+    return $self->render(
+      json => {
+        ok    => Mojo::JSON->false,
+        error => 'No permission to modify hardware.'
+      },
+      status => 403
     );
   }
 
@@ -255,6 +275,16 @@ sub del_network_adapter {
     );
   }
 
+  if ( !$hw->has_perm( 'MODIFY', $self->current_user ) ) {
+    return $self->render(
+      json => {
+        ok    => Mojo::JSON->false,
+        error => 'No permission to modify hardware.'
+      },
+      status => 403
+    );
+  }
+
   my $nwa = $self->db->resultset("NetworkAdapter")->find($network_adapter_id);
   if ( !$nwa ) {
     return $self->render(
@@ -283,6 +313,16 @@ sub get_network_adapter {
     );
   }
 
+  if ( !$hw->has_perm( 'READ', $self->current_user ) ) {
+    return $self->render(
+      json => {
+        ok    => Mojo::JSON->false,
+        error => 'No permission to read hardware.'
+      },
+      status => 403
+    );
+  }
+
   my $nwa = $self->db->resultset("NetworkAdapter")->find($network_adapter_id);
   if ( !$nwa ) {
     return $self->render(
@@ -307,6 +347,16 @@ sub update_network_adapter {
     return $self->render(
       json   => { ok => Mojo::JSON->false, error => "Hardware not found." },
       status => 404
+    );
+  }
+
+  if ( !$hw->has_perm( 'MODIFY', $self->current_user ) ) {
+    return $self->render(
+      json => {
+        ok    => Mojo::JSON->false,
+        error => 'No permission to modify hardware.'
+      },
+      status => 403
     );
   }
 
@@ -367,6 +417,16 @@ sub add_bridge {
     );
   }
 
+  if ( !$hw->has_perm( 'MODIFY', $self->current_user ) ) {
+    return $self->render(
+      json => {
+        ok    => Mojo::JSON->false,
+        error => 'No permission to modify hardware.'
+      },
+      status => 403
+    );
+  }
+
   for my $k (qw/ip netmask network gateway broadcast/) {
     $ref->{$k} = ip_to_int $ref->{$k}
       if ( exists $ref->{$k} && $ref->{$k} )
@@ -382,6 +442,26 @@ sub add_bridge {
 # list bridges
 sub list_bridges {
   my ($self) = @_;
+
+  my $hardware_id = $self->param("hardware_id");
+
+  my $hw = $self->db->resultset("Hardware")->find($hardware_id);
+  if ( !$hw ) {
+    return $self->render(
+      json   => { ok => Mojo::JSON->false, error => "Hardware not found." },
+      status => 404
+    );
+  }
+
+  if ( !$hw->has_perm( 'READ', $self->current_user ) ) {
+    return $self->render(
+      json => {
+        ok    => Mojo::JSON->false,
+        error => 'No permission to read hardware.'
+      },
+      status => 403
+    );
+  }
 
   my @all_bridges = $self->db->resultset("NetworkBridge")
     ->search( { hardware_id => $self->param("hardware_id") } );
@@ -406,6 +486,16 @@ sub del_bridge {
     return $self->render(
       json   => { ok => Mojo::JSON->false, error => "Hardware not found." },
       status => 404
+    );
+  }
+
+  if ( !$hw->has_perm( 'MODIFY', $self->current_user ) ) {
+    return $self->render(
+      json => {
+        ok    => Mojo::JSON->false,
+        error => 'No permission to modify hardware.'
+      },
+      status => 403
     );
   }
 
@@ -436,6 +526,16 @@ sub get_bridge {
     );
   }
 
+  if ( !$hw->has_perm( 'READ', $self->current_user ) ) {
+    return $self->render(
+      json => {
+        ok    => Mojo::JSON->false,
+        error => 'No permission to read hardware.'
+      },
+      status => 403
+    );
+  }
+
   my $br = $self->db->resultset("NetworkBridge")->find($bridge_id);
   if ( !$br ) {
     return $self->render(
@@ -459,6 +559,16 @@ sub update_bridge {
     return $self->render(
       json   => { ok => Mojo::JSON->false, error => "Hardware not found." },
       status => 404
+    );
+  }
+
+  if ( !$hw->has_perm( 'MODIFY', $self->current_user ) ) {
+    return $self->render(
+      json => {
+        ok    => Mojo::JSON->false,
+        error => 'No permission to modify hardware.'
+      },
+      status => 403
     );
   }
 
