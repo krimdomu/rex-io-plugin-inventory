@@ -54,11 +54,11 @@ sub to_hashRef {
 
   my $data = { $self->get_columns };
 
-  my $ip        = int_to_ip $self->ip;
-  my $netmask   = int_to_ip $self->netmask;
-  my $broadcast = int_to_ip $self->broadcast;
-  my $network   = int_to_ip $self->network;
-  my $gateway   = int_to_ip $self->gateway;
+  my $ip        = int_to_ip( $self->ip )        || "0.0.0.0";
+  my $netmask   = int_to_ip( $self->netmask )   || "0.0.0.0";
+  my $broadcast = int_to_ip( $self->broadcast ) || "0.0.0.0";
+  my $network   = int_to_ip( $self->network )   || "0.0.0.0";
+  my $gateway   = int_to_ip( $self->gateway )   || "0.0.0.0";
 
   if ( $ip eq "0.0.0.0" )        { $ip        = ""; }
   if ( $netmask eq "0.0.0.0" )   { $netmask   = ""; }
@@ -66,11 +66,11 @@ sub to_hashRef {
   if ( $broadcast eq "0.0.0.0" ) { $broadcast = ""; }
   if ( $gateway eq "0.0.0.0" )   { $gateway   = ""; }
 
-  my $wanted_ip        = int_to_ip $self->wanted_ip;
-  my $wanted_netmask   = int_to_ip $self->wanted_netmask;
-  my $wanted_broadcast = int_to_ip $self->wanted_broadcast;
-  my $wanted_network   = int_to_ip $self->wanted_network;
-  my $wanted_gateway   = int_to_ip $self->wanted_gateway;
+  my $wanted_ip        = int_to_ip( $self->wanted_ip )        || "0.0.0.0";
+  my $wanted_netmask   = int_to_ip( $self->wanted_netmask )   || "0.0.0.0";
+  my $wanted_broadcast = int_to_ip( $self->wanted_broadcast ) || "0.0.0.0";
+  my $wanted_network   = int_to_ip( $self->wanted_network )   || "0.0.0.0";
+  my $wanted_gateway   = int_to_ip( $self->wanted_gateway )   || "0.0.0.0";
 
   if ( $wanted_ip eq "0.0.0.0" )        { $wanted_ip        = ""; }
   if ( $wanted_netmask eq "0.0.0.0" )   { $wanted_netmask   = ""; }
