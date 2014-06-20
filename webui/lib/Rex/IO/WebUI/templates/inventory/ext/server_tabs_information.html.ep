@@ -31,7 +31,7 @@
       <tr>
         <td class="col-img icon-hdd td-icon">&nbsp;</td>
         <td class="col-class">Harddrive</td>
-        <td class="col-info"><%= int($hdd->{size} / 1024) %> GB, <%= $hdd->{vendor} %>, Device: <%= $hdd->{devname} %></td>
+        <td class="col-info"><%= $hdd->{size} %> GB, <%= $hdd->{vendor} %>, Device: <%= $hdd->{devname} %></td>
       </tr>
       <% } %>
 
