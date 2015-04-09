@@ -54,6 +54,7 @@ sub all_data {
   my $self = shift;
 
   return {
+    id                => $self->id,
     name              => $self->name,
     c_date            => $self->c_date,
     m_date            => $self->m_date,

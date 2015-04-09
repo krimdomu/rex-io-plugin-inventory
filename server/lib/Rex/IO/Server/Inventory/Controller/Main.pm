@@ -80,7 +80,8 @@ sub read {
     );
   }
 
-  $self->render( json => { ok => Mojo::JSON->true, data => $hw->all_data } );
+  $self->render(
+    json => { ok => Mojo::JSON->true, data => [ $hw->all_data ] } );
 }
 
 sub read_all {
@@ -101,5 +102,6 @@ sub read_all {
 
   $self->render( json => { ok => Mojo::JSON->true, data => \@ret } );
 }
+
 
 1;
