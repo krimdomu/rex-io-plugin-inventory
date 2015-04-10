@@ -18,6 +18,20 @@ sub register_plugin {
         root     => Mojo::JSON->true,
       },
       {
+        url      => "/inventory/dt/columns",
+        meth     => "GET",
+        auth     => Mojo::JSON->true,
+        location => "$my_domain/inventory/dt/columns",
+        root     => Mojo::JSON->true,
+      },
+      {
+        url      => "/inventory/dt/rows",
+        meth     => "GET",
+        auth     => Mojo::JSON->true,
+        location => "$my_domain/inventory/dt/rows",
+        root     => Mojo::JSON->true,
+      },
+      {
         url      => "/js/inventory.js",
         meth     => "GET",
         auth     => Mojo::JSON->false,
@@ -45,6 +59,38 @@ sub register_plugin {
 sub index {
   my $self = shift;
   $self->render();
+}
+
+sub index_rows {
+  my $self = shift;
+  my $entries =
+    $self->rexio->call( "GET", "1.0", "inventory", "inventory" => undef )
+    ->{data};
+
+  my @ret;
+  for my $entry ( @{$entries} ) {
+    push @ret, [ $entry->{id}, $entry->{name}, ];
+  }
+
+  $self->render( json => { ok => Mojo::JSON->true, data => \@ret } );
+}
+
+sub index_columns {
+  my $self = shift;
+  $self->render(
+    json => {
+      ok   => Mojo::JSON->true,
+      data => [
+        {
+          width => 80,
+          name  => "Id",
+        },
+        {
+          name => "Name",
+        },
+      ],
+    }
+  );
 }
 
 sub mainmenu {

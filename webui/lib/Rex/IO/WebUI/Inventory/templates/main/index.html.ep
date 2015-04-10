@@ -28,31 +28,16 @@
         <table border="0"
           id="table_entries_assets"
           class="rexio-ui-data-table"
-          rexio-ui-minus-height="290"
+          rexio-ui-minus-height="300"
           rexio-ui-selectable="true"
+          rexio-ui-datatable-columns="/inventory/dt/columns"
+          rexio-ui-datatable-rows="/inventory/dt/rows"
           style="width: 100%;">
            <thead>
-              <tr>
-                 <td width="80">Id</td>
-                 <td>Name</td>
-                 <td width="250">Permission-Set</td>
-              </tr>
+             <tr>
+             </tr>
            </thead>
            <tbody>
-              % my $entries = rexio->call("GET", "1.0", "inventory", "inventory" => undef)->{data};
-              % if(!$entries) {
-               <td width="80">&nbsp;</td>
-               <td>No assets found.</td>
-               <td width="250">&nbsp;</td>
-              % } else {
-              % for my $entry (@{ $entries }) {
-              <tr>
-                <td><%= $entry->{id} %></td>
-                <td><%= $entry->{name} %></td>
-                <td><%= $entry->{permission_set_id} %></td>
-              </tr>
-              % } # for
-              % } # if
            </tbody>
         </table>
 

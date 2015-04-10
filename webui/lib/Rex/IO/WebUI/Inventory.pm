@@ -16,6 +16,8 @@ sub startup {
 
   $r->get('/mainmenu')->to('main#mainmenu');
   $r->get('/inventory')->to('main#index');
+  $r->get('/inventory/dt/columns')->to('main#index_columns');
+  $r->get('/inventory/dt/rows')->to('main#index_rows');
   $r->post('/register')->to('main#register_plugin');
 
   #######################################################################
