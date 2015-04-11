@@ -1,0 +1,22 @@
+
+     <div id="tab-asset-main" class="tab-pane" tab_id="asset-main">
+      
+       <div class="portlet box grey">
+         <div class="portlet-title">
+           <h4>General Information</h4>
+         </div>
+         <div class="portlet-body">
+
+              <table border="0" class="info_table">
+                <tr>
+                  <td class="col-info">Hostname:</td>
+                  <td class="col-text"><%= $asset->{name} %></td>
+                </tr>
+                <tr>
+                  <td class="col-info">Operating System:</td>
+                  <td class="col-text">SomeOS 5.0</td>
+                </tr>
+              </table>
+         </div>
+       </div>
+     </div>

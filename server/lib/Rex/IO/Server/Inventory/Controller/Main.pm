@@ -50,15 +50,22 @@ sub register_plugin {
 sub create {
   my $self = shift;
   $self->app->log->debug("Got Data to create inventory:");
-  $self->app->log->debug( Dumper( $self->req->json ) );
 
-  my $ref = $self->req->json;
+  my $ref = $self->req->json->{data};
+  $self->app->log->debug( Dumper( $ref ) );
 
-  if ( exists $ref->{name} && exists $ref->{data} ) {
+  if ( exists $ref->{name} && exists $ref->{type} ) {
+    $self->app->log->debug("Creating new inventory entry.");
     $ref->{c_date} = DateTime->now;
     $ref->{m_date} = DateTime->now;
 
-    $self->db->resultset("Hardware")->create($ref);
+    eval {
+      $self->db->resultset("Hardware")->create($ref);
+      1;
+    } or do {
+      $self->app->log->error("Creating new inventory entry: $@");
+      return $self->render( json => { ok => Mojo::JSON->false, error => $@ } );
+    };
     return $self->render( json => { ok => Mojo::JSON->true } );
   }
 
@@ -102,6 +109,5 @@ sub read_all {
 
   $self->render( json => { ok => Mojo::JSON->true, data => \@ret } );
 }
-
 
 1;

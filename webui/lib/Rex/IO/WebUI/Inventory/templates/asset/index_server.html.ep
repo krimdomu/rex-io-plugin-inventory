@@ -1,0 +1,29 @@
+<h1 class="page-title">Inventory<small><%= $asset->{name} %> (<%= $asset->{id} %>)</small></h1>
+
+<ul class="breadcrumb">
+   <li>
+     <a href="#/dashboard">Home</a> &raquo; 
+   </li>
+   <li>
+     <a href="#/inventory">Inventory</a> &raquo;
+   </li>
+   <li>
+     <%= $asset->{name} %>
+   </li>
+   <li class="pull-right no-padding">
+      <div class="dropdown-menu">
+         <ul id="menu">
+            <li><a href="#" id="lnk_del_asset" rexio-ui-click="inventory.del_asset_dialog" class="mnu_item rexio-ui-link">Delete Server</a></li>
+         </ul>
+      </div>
+      <a href="#" class="pull-menu"></a>
+   </li>
+</ul>
+
+<div class="tabbable">
+   <ul id="tab_list" class="tabs tabs-top">
+   </ul>
+   <div id="tab_content" class="tab-content">
+
+   </div>
+</div>

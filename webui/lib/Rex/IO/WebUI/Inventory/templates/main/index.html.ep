@@ -2,7 +2,7 @@
 
 <ul class="breadcrumb">
    <li>
-      Home &raquo; 
+     <a href="#/dashboard">Home</a> &raquo; 
    </li>
    <li>
       Inventory
@@ -10,7 +10,7 @@
    <li class="pull-right no-padding">
       <div class="dropdown-menu">
          <ul id="menu">
-            <li><a href="#" id="lnk_add_asset" rexio-ui-click="inventory/inventory.add_asset_dialog" class="mnu_item rexio-ui-link">Add Asset</a></li>
+            <li><a href="#" id="lnk_add_asset" rexio-ui-click="inventory.add_asset_dialog" class="mnu_item rexio-ui-link">Add Asset</a></li>
          </ul>
       </div>
       <a href="#" class="pull-menu"></a>
@@ -32,6 +32,7 @@
           rexio-ui-selectable="true"
           rexio-ui-datatable-columns="/inventory/dt/columns"
           rexio-ui-datatable-rows="/inventory/dt/rows"
+          rexio-ui-datatable-rows-on-render="inventory.list_assets_row_cb"
           style="width: 100%;">
            <thead>
              <tr>
@@ -46,4 +47,34 @@
 
    </div>
 
+</div>
+
+<div id="add_asset"
+  class="dialog-window rexio-ui-dialog"
+  title="Add new Asset"
+  rexio-dialog-auto-open="false"
+  rexio-dialog-height="300"
+  rexio-dialog-width="350"
+  rexio-dialog-modal="true"
+  rexio-dialog-button-ok-value="Next"
+  rexio-dialog-button-cancel-value="Cancel"
+  rexio-dialog-button-ok-click="inventory.click_add_asset"
+  rexio-dialog-button-cancel-click="inventory.click_add_asset_cancel"
+>
+  <p class="validateTips">Add new asset</p>
+
+  <form autocomplete="off">
+    <fieldset class="standard-form">
+      <label for="asset_name">Name</label>
+      <input type="text" name="asset_name" id="asset_name" class="text ui-widget-content ui-corner-all" value="" />
+
+      <label for="asset_type">Type</label>
+      <select name="asset_type"
+        id="asset_type" 
+        class="rexio-ui-select"
+        rexio-ui-select-rows="/inventory/types"
+      >
+      </select>
+    </fieldset>
+  </form>
 </div>

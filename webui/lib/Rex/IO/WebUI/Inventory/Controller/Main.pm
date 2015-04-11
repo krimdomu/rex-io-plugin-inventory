@@ -1,5 +1,6 @@
 package Rex::IO::WebUI::Inventory::Controller::Main;
 use Mojo::Base 'Mojolicious::Controller';
+use Data::Dumper;
 
 sub register_plugin {
   my $self         = shift;
@@ -15,6 +16,20 @@ sub register_plugin {
         meth     => "GET",
         auth     => Mojo::JSON->true,
         location => "$my_domain/inventory",
+        root     => Mojo::JSON->true,
+      },
+      {
+        url      => "/inventory/asset/:asset_id",
+        meth     => "GET",
+        auth     => Mojo::JSON->true,
+        location => "$my_domain/inventory/asset/:asset_id",
+        root     => Mojo::JSON->true,
+      },
+      {
+        url      => "/inventory/asset/:asset_id/tabs",
+        meth     => "GET",
+        auth     => Mojo::JSON->true,
+        location => "$my_domain/inventory/asset/:asset_id/tabs",
         root     => Mojo::JSON->true,
       },
       {
@@ -37,6 +52,21 @@ sub register_plugin {
         auth     => Mojo::JSON->false,
         location => "$my_domain/js/inventory.js",
         root     => Mojo::JSON->true,
+      },
+      {
+        url      => "/inventory/types",
+        meth     => "GET",
+        auth     => Mojo::JSON->true,
+        location => "$my_domain/inventory/types",
+        root     => Mojo::JSON->true,
+      },
+      {
+        url      => "/inventory",
+        meth     => "POST",
+        auth     => Mojo::JSON->true,
+        location => "$my_domain/inventory/asset",
+        root     => Mojo::JSON->false,
+        api      => Mojo::JSON->true,
       },
     ],
     hooks => {
@@ -69,7 +99,7 @@ sub index_rows {
 
   my @ret;
   for my $entry ( @{$entries} ) {
-    push @ret, [ $entry->{id}, $entry->{name}, ];
+    push @ret, [ $entry->{id}, $entry->{name}, $entry->{type} ];
   }
 
   $self->render( json => { ok => Mojo::JSON->true, data => \@ret } );
@@ -88,6 +118,10 @@ sub index_columns {
         {
           name => "Name",
         },
+        {
+          width => 150,
+          name  => "Type",
+        },
       ],
     }
   );
@@ -97,6 +131,40 @@ sub mainmenu {
   my $self = shift;
   my $mainmenu = $self->render_to_string( "main/mainmenu", partial => 1 );
   $self->render( json => { main_menu => $mainmenu } );
+}
+
+sub inventory_types {
+  my $self = shift;
+  $self->render(
+    json => {
+      ok   => Mojo::JSON->true,
+      data => [
+        {
+          id   => 'server',
+          name => 'Server',
+        },
+      ]
+    }
+  );
+}
+
+sub create_inventory_asset {
+  my $self = shift;
+  my $ref  = $self->req->json;
+
+  $self->app->log->debug("Creating new asset:");
+  $self->app->log->debug( Dumper($ref) );
+
+  my $ret = $self->rexio->call("POST", "1.0", "inventory", "inventory" => undef, ref => $ref);
+
+  $self->app->log->debug("Got answer from rexio-server:");
+  $self->app->log->debug( Dumper($ret) );
+
+  $self->render(
+    json => {
+      ok => Mojo::JSON->true,
+    }
+  );
 }
 
 1;

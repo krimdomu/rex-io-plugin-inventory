@@ -26,6 +26,11 @@ __PACKAGE__->add_columns(
     size        => 150,
     is_nullable => 0,
   },
+  type => {
+    data_type   => 'varchar',
+    size        => 50,
+    is_nullable => 0,
+  },
   permission_set_id => {
     data_type   => 'integer',
     is_numeric  => 1,
@@ -56,6 +61,7 @@ sub all_data {
   return {
     id                => $self->id,
     name              => $self->name,
+    type              => $self->type,
     c_date            => $self->c_date,
     m_date            => $self->m_date,
     permission_set_id => $self->permission_set_id,

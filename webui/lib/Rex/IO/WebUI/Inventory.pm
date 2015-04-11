@@ -16,9 +16,15 @@ sub startup {
 
   $r->get('/mainmenu')->to('main#mainmenu');
   $r->get('/inventory')->to('main#index');
+  $r->get('/inventory/asset/:asset_id')->to('asset#index');
+  $r->get('/inventory/asset/:asset_id/tabs')->to('asset#asset_tabs');
+
   $r->get('/inventory/dt/columns')->to('main#index_columns');
   $r->get('/inventory/dt/rows')->to('main#index_rows');
+  $r->get('/inventory/types')->to('main#inventory_types');
   $r->post('/register')->to('main#register_plugin');
+
+  $r->post('/inventory/asset')->to('main#create_inventory_asset');
 
   #######################################################################
   # Load configuration
