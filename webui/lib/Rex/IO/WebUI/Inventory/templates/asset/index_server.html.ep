@@ -13,7 +13,26 @@
    <li class="pull-right no-padding">
       <div class="dropdown-menu">
          <ul id="menu">
-            <li><a href="#" id="lnk_del_asset" rexio-ui-click="inventory.del_asset_dialog" class="mnu_item rexio-ui-link">Delete Server</a></li>
+            <li><a href="#" id="lnk_add_asset_hardware" class="">Hardware</a>
+              <ul>
+                <li><a href="#" id="lnk_add_asset_hardware_cpu" class="">Add</a>
+                  <ul>
+                    <li><a href="#" id="lnk_add_asset_hardware_cpu" class="mnu_item">CPU</a></li>
+                    <li><a href="#" id="lnk_add_asset_hardware_ram" class="mnu_item">Memory</a></li>
+                    <li><a href="#" id="lnk_add_asset_hardware_hdd" class="mnu_item">Harddrive</a></li>
+                    <li><a href="#" id="lnk_add_asset_hardware_net" class="mnu_item">Network-Adapter</a></li>
+                  </ul>
+                </li>
+                <li><a href="#" id="lnk_del_asset_hardware" class="mnu_item">Remove hardware</a></li>
+              </ul> 
+            </li>
+            <li><a href="#" id="lnk_add_asset_software" class="">Software</a>
+              <ul>
+                <li><a href="#" id="lnk_add_asset_software_add" class="mnu_item">Add</a></li>
+                <li><a href="#" id="lnk_add_asset_software_remove" class="mnu_item">Remove</a></li>
+              </ul>
+            </li>
+            <li><a href="#" id="lnk_del_asset" rexio-ui-click="inventory.del_asset_dialog" class="mnu_item rexio-ui-link">Remove server</a></li>
          </ul>
       </div>
       <a href="#" class="pull-menu"></a>

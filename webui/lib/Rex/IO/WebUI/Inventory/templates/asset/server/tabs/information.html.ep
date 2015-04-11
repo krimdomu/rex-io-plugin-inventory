@@ -1,5 +1,4 @@
 
-     <div id="tab-asset-main" class="tab-pane" tab_id="asset-main">
       
        <div class="portlet box grey">
          <div class="portlet-title">
@@ -14,9 +13,53 @@
                 </tr>
                 <tr>
                   <td class="col-info">Operating System:</td>
-                  <td class="col-text">SomeOS 5.0</td>
+                  <td class="col-text"><%= $asset->{data}->{system}->{operating_system} %></td>
                 </tr>
               </table>
          </div>
+       </div> <!-- [end] general information -->
+
+       <div class="portlet box grey">
+         <div class="portlet-title">
+           <h4>Hardware</h4>
+         </div>
+         <div class="portlet-body">
+
+              <table border="0" class="info_table">
+                <thead>
+                  <th class="td-icon"></th>
+                  <th class="col-info">Class</th>
+                  <th class="col-text">Info</th>
+                </thead>
+                % for my $cpu (@{ $asset->{data}->{hardware}->{cpu} }) {
+                <tr>
+                  <td class="td-icon icon-cpu"></td>
+                  <td class="col-info">CPU:</td>
+                  <td class="col-text"><%= $cpu->{model} %> (<%= $cpu->{speed} %>)</td>
+                </tr>
+                % }
+                % for my $mem (@{ $asset->{data}->{hardware}->{memory} }) {
+                <tr>
+                  <td class="td-icon icon-memory"></td>
+                  <td class="col-info">RAM:</td>
+                  <td class="col-text"><%= $mem->{size} %></td>
+                </tr>
+                % }
+                % for my $hdd (@{ $asset->{data}->{hardware}->{hdd} }) {
+                <tr>
+                  <td class="td-icon icon-hdd"></td>
+                  <td class="col-info">Harddrive:</td>
+                  <td class="col-text"><%= $hdd->{model} %> (<%= $hdd->{size} %>)</td>
+                </tr>
+                % }
+                % for my $net (@{ $asset->{data}->{hardware}->{network} }) {
+                <tr>
+                  <td class="td-icon icon-eth"></td>
+                  <td class="col-info">Network:</td>
+                  <td class="col-text"><%= $net->{model} %></td>
+                </tr>
+                % }
+              </table>
+         </div>
        </div>
-     </div>
+

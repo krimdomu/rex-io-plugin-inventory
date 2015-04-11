@@ -60,7 +60,7 @@ var inventory = new Class({
           $("#tab_list").append(
             '<li id="li-tab-' + tab_id + '" tab_id="' + tab_id + '"><a id="link-tab-' + tab_id + '" tab_id="' + tab_id + '" href="#">' + tab_title + '</a></li>');
 
-          $("#tab_content").append(tab_content);
+          $("#tab_content").append('<div id="tab-' + tab_id + '" class="tab-pane" tab_id="' + tab_id + '">' + tab_content + '</div>');
         }
 
         cb();

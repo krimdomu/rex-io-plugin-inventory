@@ -1,0 +1,21 @@
+
+       <div class="portlet box grey">
+         <div class="portlet-title">
+           <h4>Installed Software</h4>
+         </div>
+         <div class="portlet-body">
+
+              <table border="0" class="info_table">
+                <thead>
+                  <th>Name</th>
+                  <th>Version</th>
+                </thead>
+                % for my $pkg (@{ $asset->{data}->{software} }) {
+                <tr>
+                  <td><%= $pkg->{name} %></td>
+                  <td><%= $pkg->{version} %></td>
+                </tr>
+                % }
+              </table>
+         </div>
+       </div> <!-- [end] installed software -->
