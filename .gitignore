@@ -27,3 +27,7 @@ vars.db
 vars.db.lock
 .carton/
 local
+db.sqlite
+.project
+.includepath
+*~

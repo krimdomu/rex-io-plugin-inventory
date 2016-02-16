@@ -46,18 +46,11 @@ sub asset_tabs {
           id    => "information",
           title => "Information",
         },
-        {
-          id    => "software",
-          title => "Software",
-        },
       ],
       content => {
         "information" => $self->render_to_string(
           "asset/$type/tabs/information",
           partial => 1
-        ),
-        "software" => $self->render_to_string(
-          "asset/$type/tabs/software", partial => 1
         ),
       },
     };

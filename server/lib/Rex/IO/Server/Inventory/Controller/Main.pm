@@ -23,32 +23,58 @@ sub register_plugin {
             {
                 url      => "/inventory",
                 meth     => "POST",
-                auth     => 0,
+                auth     => Mojo::JSON->false,
                 location => "$my_domain/inventory",
             },
             {
                 url      => "/inventory",
                 meth     => "GET",
-                auth     => 0,
+                auth     => Mojo::JSON->false,
                 location => "$my_domain/inventory",
             },
             {
                 url      => "/inventory/:hw_id",
                 meth     => "GET",
-                auth     => 0,
+                auth     => Mojo::JSON->false,
                 location => "$my_domain/inventory/:hw_id",
             },
             {
                 url      => "/inventory/:hw_id",
                 meth     => "DELETE",
-                auth     => 1,
+                auth     => Mojo::JSON->true,
                 location => "$my_domain/inventory/:hw_id",
             },
             {
                 url      => "/inventory/:hw_id",
                 meth     => "PUT",
-                auth     => 0,
+                auth     => Mojo::JSON->false,
                 location => "$my_domain/inventory/:hw_id",
+            },
+
+            # property
+            {
+                url      => "/inventory/:hw_id/property",
+                meth     => "POST",
+                auth     => Mojo::JSON->true,
+                location => "$my_domain/inventory/:hw_id/property",
+            },
+            {
+                url      => "/inventory/:hw_id/property/:prop_id",
+                meth     => "GET",
+                auth     => Mojo::JSON->true,
+                location => "$my_domain/inventory/:hw_id/property/:prop_id",
+            },
+            {
+                url      => "/inventory/:hw_id/property/:prop_id",
+                meth     => "PUT",
+                auth     => Mojo::JSON->true,
+                location => "$my_domain/inventory/:hw_id/property/:prop_id",
+            },
+            {
+                url      => "/inventory/:hw_id/property/:prop_id",
+                meth     => "DELETE",
+                auth     => Mojo::JSON->true,
+                location => "$my_domain/inventory/:hw_id/property/:prop_id",
             },
         ],
     };
@@ -65,6 +91,10 @@ sub create {
 
     my $ref = $self->req->json;
     $self->app->log->debug( Dumper($ref) );
+    
+    if(exists $ref->{data}) {
+      $ref = $ref->{data};
+    }
 
     if ( exists $ref->{name} && exists $ref->{type} ) {
         $self->app->log->debug("Creating new inventory entry.");

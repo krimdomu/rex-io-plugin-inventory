@@ -61,12 +61,23 @@ sub startup {
     # routes
     #######################################################################
     my $r = $self->routes;
-    $r->get('/inventory')->to('main#read_all');
-    $r->get('/inventory/:hw_id')->to('main#read');
-    $r->delete('/inventory/:hw_id')->to('main#remove');
-    $r->put('/inventory/:hw_id')->to('main#update');
-    $r->post('/inventory')->to('main#create');
     $r->post('/register')->to('main#register_plugin');
+
+    # get all assets
+    $r->get('/inventory')->to('main#read_all');
+
+    # assets
+    $r->get('/inventory/:hw_id')->to('main#read');
+    $r->post('/inventory')->to('main#create');
+    $r->put('/inventory/:hw_id')->to('main#update');
+    $r->delete('/inventory/:hw_id')->to('main#remove');
+
+    # property
+    $r->get('/inventory/:hw_id/property/:prop_id')->to('property#read');
+    $r->post('/inventory/:hw_id/property')->to('property#create');
+    $r->put('/inventory/:hw_id/property/:prop_id')->to('property#update');
+    $r->delete('/inventory/:hw_id/property/:prop_id')->to('property#remove');
+
 }
 
 1;
