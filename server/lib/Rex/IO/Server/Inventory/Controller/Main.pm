@@ -27,10 +27,10 @@ sub register_plugin {
                 location => "$my_domain/inventory",
             },
             {
-                url      => "/inventory",
+                url      => "/inventory/:group_id",
                 meth     => "GET",
                 auth     => Mojo::JSON->false,
-                location => "$my_domain/inventory",
+                location => "$my_domain/inventory/:group_id",
             },
             {
                 url      => "/inventory/:hw_id",
@@ -75,6 +75,44 @@ sub register_plugin {
                 meth     => "DELETE",
                 auth     => Mojo::JSON->true,
                 location => "$my_domain/inventory/:hw_id/property/:prop_id",
+            },
+
+            # group
+            {
+                url      => "/group",
+                meth     => "POST",
+                auth     => Mojo::JSON->true,
+                location => "$my_domain/group",
+            },
+            {
+                url      => "/group/root",
+                meth     => "GET",
+                auth     => Mojo::JSON->true,
+                location => "$my_domain/group/root",
+            },
+            {
+                url      => "/group/:group_id/children",
+                meth     => "GET",
+                auth     => Mojo::JSON->true,
+                location => "$my_domain/group/:group_id/children",
+            },
+            {
+                url      => "/group/:group_id",
+                meth     => "GET",
+                auth     => Mojo::JSON->true,
+                location => "$my_domain/group/:group_id",
+            },
+            {
+                url      => "/group/:group_id",
+                meth     => "PUT",
+                auth     => Mojo::JSON->true,
+                location => "$my_domain/group/:group_id",
+            },
+            {
+                url      => "/group/:group_id",
+                meth     => "DELETE",
+                auth     => Mojo::JSON->true,
+                location => "$my_domain/group/:group_id",
             },
         ],
     };
@@ -155,7 +193,9 @@ sub read_all {
     my $self = shift;
 
     my $rs = $self->db->resultset("Hardware")->search(
-        undef,
+        {
+          group_id => $self->param("group_id"),
+        },
         {
             page => ( $self->param("page") || 1 ),
             rows => ( $self->param("rows") || 15 ),

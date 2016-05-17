@@ -30,6 +30,11 @@ __PACKAGE__->add_columns(
     size        => 50,
     is_nullable => 0,
   },
+  group_id => {
+    data_type     => 'integer',
+    is_nullable   => 0,
+    default_value => 1,
+  },
   c_date => {
     data_type     => 'timestamp',
     is_nullable   => 0,
@@ -47,6 +52,10 @@ __PACKAGE__->set_primary_key("id");
 __PACKAGE__->has_many( "properties",
   "Rex::IO::Server::Inventory::Schema::Result::Property",
   "hardware_id" );
+
+__PACKAGE__->belongs_to( "group",
+  "Rex::IO::Server::Inventory::Schema::Result::Group",
+  "group_id" );
 
 sub all_data {
   my $self = shift;

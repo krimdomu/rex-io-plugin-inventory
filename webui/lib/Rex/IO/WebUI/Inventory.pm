@@ -15,12 +15,15 @@ sub startup {
   my $r = $self->routes;
 
   $r->get('/mainmenu')->to('main#mainmenu');
-  $r->get('/inventory')->to('main#index');
+  $r->get('/inventory/:group_id')->to('main#index');
   $r->get('/inventory/asset/:asset_id')->to('asset#index');
   $r->get('/inventory/asset/:asset_id/tabs')->to('asset#asset_tabs');
 
+  $r->get('/group/:group_id')->to('group#get_group');
+  $r->get('/group/:group_id/children')->to('group#get_children');
+
   $r->get('/inventory/dt/columns')->to('main#index_columns');
-  $r->get('/inventory/dt/rows')->to('main#index_rows');
+  $r->get('/inventory/dt/rows/:group_id')->to('main#index_rows');
   $r->get('/inventory/types')->to('main#inventory_types');
   $r->post('/register')->to('main#register_plugin');
 

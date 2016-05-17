@@ -1,3 +1,18 @@
-<li class="">
-  <a href="#/inventory">Inventory</a>
+<li class="has-sub">
+  <a href="#" class="mnu-icon-arrow-left mnu-item">Inventory</a>
+  <ul class="sub light-background">
+    <li>
+      <div 
+        id="inventory_group_tree"
+        class="rexio-ui-tree"
+        rexio-ui-tree-open-node="inventory.open_tree_node"
+        rexio-ui-tree-root-text="<%= $root->{name} %>"
+        rexio-ui-tree-root-id="<%= $root->{id} %>"
+        rexio-ui-tree-lazy-url="/inventory/group/<%= $root->{id} %>"
+        rexio-ui-tree-node-selected="inventory.clicked_tree_node"
+        >
+        
+      </div>
+    </li>
+  </ul>
 </li>

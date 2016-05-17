@@ -9,6 +9,7 @@ var inventory = new Class({
   load: function(force) {
     var self = this;
 
+    /*
     self.ui.register_route(new RegExp('^inventory/asset/(\\d+)'), function(idx) {
       console.log("requesting inventory idx: " + idx[0]);
       self.asset_id = idx[0];
@@ -37,8 +38,31 @@ var inventory = new Class({
           console.log("Inventory page loaded!");
         }
       }
-    );
+    ); 
+    */
   },
+  
+  open_tree_node: function(node) {
+    console.log("inventory.js: open_tree_node");
+    console.log(node);
+  },
+  
+  clicked_tree_node: function(event, node) {
+    console.log("inventory.js: clicked_tree_node");
+    console.log(node);
+
+    self.ui.load_page(
+        {
+          "link" : "/inventory/" + node.id,
+          "cb"   : function() {
+            prepare_tab();
+            activate_tab($(".tab-pane:first"));
+
+            console.log("Inventory page loaded!");
+          }
+        }
+      ); 
+},
 
   load_tabs: function(cb) {
     var self = this;
@@ -142,6 +166,8 @@ var inventory = new Class({
       return "<td>" + data + "</td>";
     }
   },
+  
+  onload: function() {},
 
   __END__: ""
 

@@ -12,10 +12,10 @@ sub register_plugin {
     name    => "inventory",
     methods => [
       {
-        url      => "/inventory",
+        url      => "/inventory/:group_id",
         meth     => "GET",
         auth     => Mojo::JSON->true,
-        location => "$my_domain/inventory",
+        location => "$my_domain/inventory/:group_id",
         root     => Mojo::JSON->true,
       },
       {
@@ -40,10 +40,10 @@ sub register_plugin {
         root     => Mojo::JSON->true,
       },
       {
-        url      => "/inventory/dt/rows",
+        url      => "/inventory/dt/rows/:group_id",
         meth     => "GET",
         auth     => Mojo::JSON->true,
-        location => "$my_domain/inventory/dt/rows",
+        location => "$my_domain/inventory/dt/rows/:group_id",
         root     => Mojo::JSON->true,
       },
       {
@@ -67,6 +67,20 @@ sub register_plugin {
         location => "$my_domain/inventory/asset",
         root     => Mojo::JSON->false,
         api      => Mojo::JSON->true,
+      },
+      {
+        url      => "/inventory/group/:group_id",
+        meth     => "GET",
+        auth     => Mojo::JSON->true,
+        location => "$my_domain/group/:group_id",
+        root     => Mojo::JSON->true,
+      },
+      {
+        url      => "/inventory/group/:group_id/children",
+        meth     => "GET",
+        auth     => Mojo::JSON->true,
+        location => "$my_domain/group/:group_id/children",
+        root     => Mojo::JSON->true,
       },
     ],
     hooks => {
@@ -93,8 +107,9 @@ sub index {
 
 sub index_rows {
   my $self = shift;
+
   my $entries =
-    $self->rexio->call( "GET", "1.0", "inventory", "inventory" => undef )
+    $self->rexio->call( "GET", "1.0", "inventory", "inventory" => $self->param("group_id") )
     ->{data};
 
   my @ret;
@@ -129,6 +144,19 @@ sub index_columns {
 
 sub mainmenu {
   my $self = shift;
+
+  my $root =
+    $self->rexio->call( "GET", "1.0", "inventory", "group" => "root" )
+    ->{data};
+
+  $self->app->log->debug("Got User: " . $self->req->headers->header('X-RexIO-User'));
+  $self->app->log->debug("Got Password: " . $self->req->headers->header('X-RexIO-Password'));
+  $self->app->log->debug("Got Server: " . $self->req->headers->header('X-RexIO-Server'));
+
+  #my $root = { name => "Root" };
+
+  $self->stash("root", $root);
+
   my $mainmenu = $self->render_to_string( "main/mainmenu", partial => 1 );
   $self->render( json => { main_menu => $mainmenu } );
 }

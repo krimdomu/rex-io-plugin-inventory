@@ -73,7 +73,7 @@ sub read {
   }
 
   $self->render(
-    json => { ok => Mojo::JSON->true, data => $prop_o->add_data } );
+    json => { ok => Mojo::JSON->true, data => $prop_o->all_data } );
 }
 
 sub remove {

@@ -64,7 +64,7 @@ sub startup {
     $r->post('/register')->to('main#register_plugin');
 
     # get all assets
-    $r->get('/inventory')->to('main#read_all');
+    $r->get('/inventory/:group_id')->to('main#read_all');
 
     # assets
     $r->get('/inventory/:hw_id')->to('main#read');
@@ -77,6 +77,15 @@ sub startup {
     $r->post('/inventory/:hw_id/property')->to('property#create');
     $r->put('/inventory/:hw_id/property/:prop_id')->to('property#update');
     $r->delete('/inventory/:hw_id/property/:prop_id')->to('property#remove');
+
+    # group
+    $r->get('/group/root')->to('group#read_root');
+    $r->get('/group/:group_id/children')->to('group#get_children');
+
+    $r->get('/group/:group_id')->to('group#read');
+    $r->post('/group')->to('group#create');
+    $r->put('/group/:group_id')->to('group#update');
+    $r->delete('/group/:group_id')->to('group#remove');
 
 }
 
