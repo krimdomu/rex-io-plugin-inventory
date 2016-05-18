@@ -30,5 +30,18 @@ sub get_group {
   $self->render(json => $group);
 }
 
+sub create_group {
+  my ($self) = @_;
+
+  my $ret = $self->rexio->call( "POST", "1.0", "inventory", "group" => undef, ref => $self->req->json->{data} );
+  $self->render(json => $ret);
+}
+
+sub remove_group {
+  my ($self) = @_;
+
+  my $ret = $self->rexio->call( "DELETE", "1.0", "inventory", "group" => $self->param("group_id"));
+  $self->render(json => $ret);
+}
 
 1;

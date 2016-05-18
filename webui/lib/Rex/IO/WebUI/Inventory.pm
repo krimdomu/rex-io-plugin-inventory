@@ -19,8 +19,10 @@ sub startup {
   $r->get('/inventory/asset/:asset_id')->to('asset#index');
   $r->get('/inventory/asset/:asset_id/tabs')->to('asset#asset_tabs');
 
+  $r->post('/group')->to('group#create_group');
   $r->get('/group/:group_id')->to('group#get_group');
   $r->get('/group/:group_id/children')->to('group#get_children');
+  $r->delete('/group/:group_id')->to('group#remove_group');
 
   $r->get('/inventory/dt/columns')->to('main#index_columns');
   $r->get('/inventory/dt/rows/:group_id')->to('main#index_rows');

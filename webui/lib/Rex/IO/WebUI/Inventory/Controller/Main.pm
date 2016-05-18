@@ -54,6 +54,20 @@ sub register_plugin {
         root     => Mojo::JSON->true,
       },
       {
+        url      => "/js/inventory/asset.js",
+        meth     => "GET",
+        auth     => Mojo::JSON->false,
+        location => "$my_domain/js/inventory/asset.js",
+        root     => Mojo::JSON->true,
+      },
+      {
+        url      => "/js/inventory/group.js",
+        meth     => "GET",
+        auth     => Mojo::JSON->false,
+        location => "$my_domain/js/inventory/group.js",
+        root     => Mojo::JSON->true,
+      },
+      {
         url      => "/inventory/types",
         meth     => "GET",
         auth     => Mojo::JSON->true,
@@ -82,6 +96,22 @@ sub register_plugin {
         location => "$my_domain/group/:group_id/children",
         root     => Mojo::JSON->true,
       },
+      {
+        url      => "/group",
+        meth     => "POST",
+        auth     => Mojo::JSON->true,
+        location => "$my_domain/group",
+        root     => Mojo::JSON->false,
+        api      => Mojo::JSON->true,
+      },
+      {
+        url      => "/group/:group_id",
+        meth     => "DELETE",
+        auth     => Mojo::JSON->true,
+        location => "$my_domain/group/:group_id",
+        root     => Mojo::JSON->false,
+        api      => Mojo::JSON->true,
+      },
     ],
     hooks => {
       consume => [
@@ -102,6 +132,11 @@ sub register_plugin {
 
 sub index {
   my $self = shift;
+
+  my $group =
+    $self->rexio->call( "GET", "1.0", "inventory", "group" => $self->param("group_id") )
+    ->{data};
+  $self->stash("group", $group);
   $self->render();
 }
 

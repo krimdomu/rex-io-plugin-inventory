@@ -7,6 +7,7 @@
 package Rex::IO::Server::Inventory::Controller::Group;
 
 use Mojo::Base 'Mojolicious::Controller';
+use Data::Dumper;
 
 sub read {
   my $self = shift;
@@ -46,29 +47,39 @@ sub read_root {
 
 sub get_children {
   my ($self) = @_;
-  my $group_o = $self->db->resultset("Group")->find($self->param("group_id"));
-  
+  my $group_o = $self->db->resultset("Group")->find( $self->param("group_id") );
+
   my $rs = $group_o->children;
   my @ret;
-  while(my $child = $rs->next) {
+  while ( my $child = $rs->next ) {
     push @ret, $child->all_data;
   }
-  
-  $self->render(json => { ok => Mojo::JSON->true, data => \@ret });
+
+  $self->render( json => { ok => Mojo::JSON->true, data => \@ret } );
 }
 
 sub create {
   my ($self) = @_;
   my $ref = $self->req->json;
-  
-  if(! exists $ref->{parent_id}) {
-    return $self->render(json => {ok => Mojo::JSON->false, error => "Missing parent_id", }, status => 500);
-  }
-  
-  my $parent_o = $self->db->resultset("Group")->find($ref->{parent_id});
 
-  if(! $parent_o) {
-    return $self->render(json => {ok => Mojo::JSON->false, error => "Parent not found.", }, status => 404);
+  $self->app->log->debug("Try to create new group.");
+  $self->app->log->debug("Got group data:");
+  $self->app->log->debug( Dumper($ref) );
+
+  if ( !exists $ref->{parent_id} ) {
+    return $self->render(
+      json   => { ok => Mojo::JSON->false, error => "Missing parent_id", },
+      status => 500
+    );
+  }
+
+  my $parent_o = $self->db->resultset("Group")->find( $ref->{parent_id} );
+
+  if ( !$parent_o ) {
+    return $self->render(
+      json   => { ok => Mojo::JSON->false, error => "Parent not found.", },
+      status => 404
+    );
   }
 
   delete $ref->{parent_id};
@@ -77,13 +88,28 @@ sub create {
     $parent_o->add_to_children($ref);
     1;
   } or do {
-    return $self->render(json => {ok => Mojo::JSON->false, error => $@}, 500);
+    return $self->render( json => { ok => Mojo::JSON->false, error => $@ },
+      500 );
   };
-  
-  $self->render(json => {ok => Mojo::JSON->true});
+
+  $self->render( json => { ok => Mojo::JSON->true } );
 }
 
-sub remove {}
-sub update {}
+sub remove {
+  my ($self) = @_;
+
+  $self->app->log->debug( "Try to delete group: " . $self->param("group_id") );
+
+  my $group = $self->db->resultset("Group")->find($self->param("group_id"));
+
+  if ($group) {
+    $group->delete;
+    return $self->render( json => { ok => Mojo::JSON->true } );
+  }
+
+  return $self->render( json => { ok => Mojo::JSON->false }, status => 404 );
+}
+
+sub update { }
 
 1;

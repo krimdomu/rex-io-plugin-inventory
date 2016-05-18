@@ -10,7 +10,13 @@
    <li class="pull-right no-padding">
       <div class="dropdown-menu">
          <ul id="menu">
-            <li><a href="#" id="lnk_add_asset" rexio-ui-click="inventory.add_asset_dialog" class="mnu_item rexio-ui-link">Add Asset</a></li>
+            <li><a href="#" id="lnk_add_group" rexio-ui-click="inventory/group.add_group_dialog" class="mnu_item rexio-ui-link">Add Group</a></li>
+            <li><a href="#" id="lnk_edit_group" rexio-ui-click="inventory/group.edit_group_dialog" class="mnu_item rexio-ui-link">Edit Group</a></li>
+            <li><a href="#" id="lnk_remove_group" rexio-ui-click="inventory/group.remove_group_dialog" class="mnu_item rexio-ui-link">Remove Group</a></li>
+
+            <li><a href="#" id="lnk_add_asset" rexio-ui-click="inventory/asset.add_asset_dialog" class="mnu_item rexio-ui-link">Add Asset</a></li>
+            <li><a href="#" id="lnk_edit_asset" rexio-ui-click="inventory/asset.edit_asset_dialog" class="mnu_item rexio-ui-link">Edit Asset</a></li>
+            <li><a href="#" id="lnk_remove_asset" rexio-ui-click="inventory/asset.remove_asset_dialog" class="mnu_item rexio-ui-link">Remove Asset</a></li>
          </ul>
       </div>
       <a href="#" class="pull-menu"></a>
@@ -32,7 +38,7 @@
           rexio-ui-selectable="true"
           rexio-ui-datatable-columns="/inventory/dt/columns"
           rexio-ui-datatable-rows="/inventory/dt/rows/<%= param("group_id") %>"
-          rexio-ui-datatable-rows-on-render="inventory.list_assets_row_cb"
+          rexio-ui-datatable-rows-on-render="inventory/asset.list_assets_row_cb"
           style="width: 100%;">
            <thead>
              <tr>
@@ -58,8 +64,8 @@
   rexio-dialog-modal="true"
   rexio-dialog-button-ok-value="Next"
   rexio-dialog-button-cancel-value="Cancel"
-  rexio-dialog-button-ok-click="inventory.click_add_asset"
-  rexio-dialog-button-cancel-click="inventory.click_add_asset_cancel"
+  rexio-dialog-button-ok-click="inventory/asset.click_add_asset"
+  rexio-dialog-button-cancel-click="inventory/asset.click_add_asset_cancel"
 >
   <p class="validateTips">Add new asset</p>
 
@@ -78,3 +84,29 @@
     </fieldset>
   </form>
 </div>
+
+
+<div id="add_group"
+  class="dialog-window rexio-ui-dialog"
+  title="Add new Group"
+  rexio-dialog-auto-open="false"
+  rexio-dialog-height="300"
+  rexio-dialog-width="350"
+  rexio-dialog-modal="true"
+  rexio-dialog-button-ok-value="Create"
+  rexio-dialog-button-cancel-value="Cancel"
+  rexio-dialog-button-ok-click="inventory/group.click_add_group"
+  rexio-dialog-button-cancel-click="inventory/group.click_add_group_cancel"
+>
+  <p class="validateTips">Add new group</p>
+
+  <form autocomplete="off">
+    <fieldset class="standard-form">
+      <label for="group_name">Name</label>
+      <input type="text" name="group_name" id="group_name" class="text ui-widget-content ui-corner-all" value="" />
+    </fieldset>
+  </form>
+</div>
+
+<input type="hidden" name="current_group_id" id="current_group_id" value="<%= param("group_id") %>" />
+<input type="hidden" name="current_group_name" id="current_group_name" value="<%= $group->{name} %>" />
