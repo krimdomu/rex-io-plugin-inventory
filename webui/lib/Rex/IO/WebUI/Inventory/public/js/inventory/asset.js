@@ -65,43 +65,20 @@ var inventory_asset = new Class({
 
   click_add_asset: function() {
     var self = this;
+    
+    rexio.stash("name", $("#asset_name").val());
+    rexio.stash("type", $("#asset_type").val());
+    rexio.stash("group_id", $("#current_group_id").val());
 
-    rexio.call("POST",
-      "1.0",
-      "inventory",
-      [
-        "inventory", null,
-        "ref", {
-          "name": $("#asset_name").val(),
-          "type": $("#asset_type").val()
-        }
-      ],
-      function(data) {
-        if(data['ok']) {
-          $.pnotify({
-            "title" : "New asset created",
-            "text"  : "New asset "
-                        + "<b>" + $("#asset_name").val() + "</b>"
-                        + " created. ",
-            "type"  : "info"
-          });
+    var plugin = $("#asset_type").val();
+    
+    self.ui.load_plugin({
+      "obj": plugin,
+      "cb": function() {
+        self.ui.call_plugin_method(plugin, "add");
+      }
+    });
 
-          self.ui.redirect_to("inventory");
-        }
-        else {
-          $.pnotify({
-            "title" : "Error "
-                        + " creating "
-                        + " asset",
-            "text"  : "Can't "
-                        + " create new "
-                        + " asset "
-                        + "<b>" + $("#asset_name").val() + "</b>"
-                        + "<br /><br /><b>Error</b>: " + data['error'],
-            "type"  : "error"
-          });
-        }
-      });
   },
 
   list_assets_row_cb: function(data, idx, data_ref) {

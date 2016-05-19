@@ -19,6 +19,13 @@ sub register_plugin {
         root     => Mojo::JSON->true,
       },
       {
+        url      => "/inventory/asset/server/new",
+        meth     => "GET",
+        auth     => Mojo::JSON->true,
+        location => "$my_domain/inventory/asset/server/new",
+        root     => Mojo::JSON->true,
+      },
+      {
         url      => "/inventory/asset/:asset_id",
         meth     => "GET",
         auth     => Mojo::JSON->true,
@@ -65,6 +72,13 @@ sub register_plugin {
         meth     => "GET",
         auth     => Mojo::JSON->false,
         location => "$my_domain/js/inventory/group.js",
+        root     => Mojo::JSON->true,
+      },
+      {
+        url      => "/js/inventory/asset/server.js",
+        meth     => "GET",
+        auth     => Mojo::JSON->false,
+        location => "$my_domain/js/inventory/asset/server.js",
         root     => Mojo::JSON->true,
       },
       {
@@ -203,7 +217,7 @@ sub inventory_types {
       ok   => Mojo::JSON->true,
       data => [
         {
-          id   => 'server',
+          id   => 'inventory/asset/server',
           name => 'Server',
         },
       ]
