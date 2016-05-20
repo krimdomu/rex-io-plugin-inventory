@@ -87,6 +87,12 @@ sub startup {
     $r->put('/group/:group_id')->to('group#update');
     $r->delete('/group/:group_id')->to('group#remove');
 
+    # templates
+    $r->get('/template/:template_id')->to('template#read');
+    $r->post('/template/:template_id')->to('template#create');
+    $r->put('/template/:template_id')->to('template#update');
+    $r->delete('/template/:template_id')->to('template#remove');
+
 }
 
 1;

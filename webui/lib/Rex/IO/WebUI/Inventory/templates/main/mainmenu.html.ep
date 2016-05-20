@@ -1,7 +1,8 @@
 <li class="has-sub">
   <a href="#" class="mnu-icon-arrow-left mnu-item">Inventory</a>
-  <ul class="sub light-background">
-    <li>
+
+  <ul class="sub">
+    <li class="nav-light-background">
       <div 
         id="inventory_group_tree"
         class="rexio-ui-tree"
@@ -14,5 +15,8 @@
         
       </div>
     </li>
+    <li><a href="#/inventory/templates">Templates</a></li>
+    <li><a href="#/inventory/networks">Networks</a></li>
+    <li><a href="#/inventory/dns">DNS</a></li>
   </ul>
 </li>

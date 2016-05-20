@@ -35,6 +35,12 @@ sub startup {
 
   $r->post('/inventory/asset')->to('main#create_inventory_asset');
 
+  # templates
+  $r->get('/template')->to('templates#index');
+  $r->get('/template/types')->to('templates#types');
+  $r->get('/template/dt/columns')->to('templates#columns');
+  $r->get('/template/dt/rows')->to('templates#rows');
+
   #######################################################################
   # Load configuration
   #######################################################################

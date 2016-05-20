@@ -114,6 +114,32 @@ sub register_plugin {
                 auth     => Mojo::JSON->true,
                 location => "$my_domain/group/:group_id",
             },
+
+            # template
+            {
+                url      => "/template",
+                meth     => "POST",
+                auth     => Mojo::JSON->true,
+                location => "$my_domain/template",
+            },
+            {
+                url      => "/template/:template_id",
+                meth     => "GET",
+                auth     => Mojo::JSON->true,
+                location => "$my_domain/template/:template_id",
+            },
+            {
+                url      => "/template/:template_id",
+                meth     => "PUT",
+                auth     => Mojo::JSON->true,
+                location => "$my_domain/template/:template_id",
+            },
+            {
+                url      => "/template/:template_id",
+                meth     => "DELETE",
+                auth     => Mojo::JSON->true,
+                location => "$my_domain/template/:template_id",
+            },
         ],
     };
 

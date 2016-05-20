@@ -15,23 +15,40 @@
 <div class="tabbable">
    <ul class="tabs tabs-top">
       <li id="li-tab-main" tab_id="main" class="active"><a id="link-tab-main" tab_id="main" href="#">Main</a></li>
+      <li id="li-tab-network" tab_id="network" class=""><a id="link-tab-network" tab_id="network" href="#">Network</a></li>
    </ul>
    <div class="tab-content">
+   
+      <form autocomplete="off">
 
-      <div id="tab-main" class="tab-pane" tab_id="main">
-
-        <form autocomplete="off">
+        <div id="tab-main" class="tab-pane" tab_id="main">
+  
           <fieldset class="standard-form">
             <label for="asset_name">Name</label>
             <input type="text" name="asset_name" id="asset_name" class="text ui-widget-content ui-corner-all" value="" />
+
+            <label for="asset_domain">Domain</label>
+            <input type="text" name="asset_domain" id="asset_domain" class="text ui-widget-content ui-corner-all" value="" />
+
+            <label for="asset_os">OS</label>
+            <select id="asset_os" name="asset_os">
+            </select>
           </fieldset>
           
-          <button type="button" class="btn btn-primary" id="save_server">Save</button>
-        </form>
+  
+        </div>
+  
+  
+        <div id="tab-network" class="tab-pane" tab_id="network">
+        </div>
 
-      </div>
+
+      </form>
 
    </div>
 
 </div>
 
+<div class="btn-bar">
+  <button type="button" class="btn btn-primary" id="save_server">Save</button>
+</div>

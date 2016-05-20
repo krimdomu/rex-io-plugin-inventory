@@ -1,0 +1,55 @@
+<h1 class="page-title">Templates<small>Boot and Deploy</small></h1>
+
+<ul class="breadcrumb">
+   <li>
+     <a href="#/dashboard">Home</a> &raquo; 
+   </li>
+   <li>
+      <a href="#/inventory/1">Inventory</a> &raquo;
+   </li>
+   <li>
+      Templates
+   </li>
+   <li class="pull-right no-padding">
+      <div class="dropdown-menu">
+         <ul id="menu">
+            <li><a href="#" id="lnk_add_template" rexio-ui-click="inventory/template.add_template_dialog" class="mnu_item rexio-ui-link">Add Template</a></li>
+            <li><a href="#" id="lnk_edit_template" rexio-ui-click="inventory/template.edit_template_dialog" class="mnu_item rexio-ui-link">Edit Template</a></li>
+            <li><a href="#" id="lnk_remove_template" rexio-ui-click="inventory/template.remove_template_dialog" class="mnu_item rexio-ui-link">Remove Template</a></li>
+         </ul>
+      </div>
+      <a href="#" class="pull-menu"></a>
+   </li>
+</ul>
+
+<div class="tabbable">
+   <ul class="tabs tabs-top">
+      <li id="li-tab-template" tab_id="template" class="active"><a id="link-tab-template" tab_id="template" href="#">Templates</a></li>
+   </ul>
+   <div class="tab-content">
+
+      <div id="tab-template" class="tab-pane" tab_id="template">
+
+        <table border="0"
+          id="table_entries_assets"
+          class="rexio-ui-data-table"
+          rexio-ui-minus-height="300"
+          rexio-ui-selectable="true"
+          rexio-ui-datatable-columns="/inventory/template/dt/columns"
+          rexio-ui-datatable-rows="/inventory/template/dt/rows"
+          rexio-ui-datatable-rows-on-render="inventory/templates.list_templates_row_cb"
+          style="width: 100%;">
+           <thead>
+             <tr>
+             </tr>
+           </thead>
+           <tbody>
+           </tbody>
+        </table>
+
+
+      </div>
+
+   </div>
+
+</div>

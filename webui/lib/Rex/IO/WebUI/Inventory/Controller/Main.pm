@@ -11,6 +11,37 @@ sub register_plugin {
   my $register_conf = {
     name    => "inventory",
     methods => [
+      # templates
+      {
+        url      => "/inventory/template",
+        meth     => "GET",
+        auth     => Mojo::JSON->true,
+        location => "$my_domain/template",
+        root     => Mojo::JSON->true,
+      },
+      {
+        url      => "/inventory/template/types",
+        meth     => "GET",
+        auth     => Mojo::JSON->true,
+        location => "$my_domain/template/types",
+        root     => Mojo::JSON->true,
+      },
+      {
+        url      => "/inventory/template/dt/columns",
+        meth     => "GET",
+        auth     => Mojo::JSON->true,
+        location => "$my_domain/template/dt/columns",
+        root     => Mojo::JSON->true,
+      },
+      {
+        url      => "/inventory/template/dt/rows",
+        meth     => "GET",
+        auth     => Mojo::JSON->true,
+        location => "$my_domain/template/dt/rows",
+        root     => Mojo::JSON->true,
+      },
+
+      # inventory
       {
         url      => "/inventory/:group_id",
         meth     => "GET",
@@ -58,6 +89,13 @@ sub register_plugin {
         meth     => "GET",
         auth     => Mojo::JSON->false,
         location => "$my_domain/js/inventory.js",
+        root     => Mojo::JSON->true,
+      },
+      {
+        url      => "/js/inventory/templates.js",
+        meth     => "GET",
+        auth     => Mojo::JSON->false,
+        location => "$my_domain/js/inventory/templates.js",
         root     => Mojo::JSON->true,
       },
       {
